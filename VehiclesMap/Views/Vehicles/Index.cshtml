@@ -1,0 +1,29 @@
+﻿@model dynamic
+
+@{
+    ViewBag.Title = "Vehicles";
+    Layout = "../Shared/_Layout.cshtml";
+}   
+
+<div class="ManagePanel">
+  <div class="input-append date datepicker">
+    <input data-format="dd/MM/yyyy hh:mm:ss" type="text"></input>
+    <span class="add-on">
+      <i data-time-icon="icon-time" data-date-icon="icon-calendar">
+      </i>
+    </span>
+  </div>
+</div>
+
+<div class="Map">
+    <span>Map</span>
+</div>
+
+    <script src="~/Scripts/jquery-1.9.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/bootstrap-datepicker.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $('.date').Datepicker({ language: 'pt-BR' });
+  });
+</script>
