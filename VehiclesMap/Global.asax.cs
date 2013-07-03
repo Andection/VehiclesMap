@@ -1,6 +1,8 @@
 ﻿using System.Web.Http;
 using System.Web.Mvc;
+using System.Web.Optimization;
 using System.Web.Routing;
+using VehiclesMap.App_Start;
 
 namespace VehiclesMap
 {
@@ -11,12 +13,10 @@ namespace VehiclesMap
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
-
+            BundleConfig.RegisterBundles(BundleTable.Bundles);
             WebApiConfig.Register(GlobalConfiguration.Configuration);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
-            BootstrapSupport.BootstrapBundleConfig.RegisterBundles(System.Web.Optimization.BundleTable.Bundles);
-            BootstrapMvcSample.ExampleLayoutsRouteConfig.RegisterRoutes(RouteTable.Routes);
         }
     }
 }
