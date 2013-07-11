@@ -1,19 +1,9 @@
-﻿
 Ext.application({
-    name: 'AM',
-
-    appFolder: 'app',
-
-    launch: function () {
-        Ext.create('Ext.container.Viewport', {
-            layout: 'fit',
-            items: [
-                {
-                    xtype: 'panel',
-                    title: 'Users',
-                    html: 'List of users will go here'
-                }
-            ]
-        });
-    }
+    name: 'VehiclesMap',
+    
+    autoCreateViewport: true//,
+    
+    //models: ['Station', 'Song'],    
+    //stores: ['Stations', 'RecentSongs', 'SearchResults'],
+    //controllers: ['Station', 'Song']
 });
