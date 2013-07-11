@@ -134,6 +134,10 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Content Include="app\app.js" />
+    <Content Include="app\controller\Vehicles.js" />
+    <Content Include="app\model\Vehicle.js" />
+    <Content Include="app\store\Vehicles.js" />
+    <Content Include="app\store\VehiclesForDate.js" />
     <Content Include="app\view\ManageMap.js" />
     <Content Include="app\view\GMapPanel.js" />
     <Content Include="app\view\Viewport.js" />
@@ -3110,9 +3114,6 @@
     <Content Include="Scripts\jquery-1.9.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="app\controller\" />
-    <Folder Include="app\model\" />
-    <Folder Include="app\store\" />
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
