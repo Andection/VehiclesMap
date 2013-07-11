@@ -134,7 +134,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Content Include="app\app.js" />
     <Content Include="app\view\ManageMap.js" />
-    <Content Include="app\lib\GMapPanel.js" />
+    <Content Include="app\view\GMapPanel.js" />
     <Content Include="app\view\Viewport.js" />
     <Content Include="Content\bootstrap-responsive.css" />
     <Content Include="Content\bootstrap-responsive.min.css" />
