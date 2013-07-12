@@ -1,26 +1,35 @@
 ﻿Ext.define('VehiclesMap.controller.Vehicles', {
     extend: 'Ext.app.Controller',
 
-
-    //    views: ['ManageMap','GMapPanel'],
     refs: [{
-        ref: 'ManageMap',
-        selector: 'ManageMap'
-    }, {
-        ref: 'GMapPanel',
-        selector: 'GMapPanel'
-    }],
-    
-    stores: ['Vehicles', 'VehiclesForDate'],
+            ref: 'ManageMap',
+            selector: 'manageMap'
+        }, {
+            ref: 'GMapPanel',
+            selector: 'gmappanel'
+        }],
 
+    stores: ['Vehicles', 'VehiclesForDate'],
+ 
     init: function() {
         var store = this.getVehiclesStore();
-        console.log(store);
+        var self = this;
         store.load({
             callback: function(records, operation, success) {
-                console.log(records, operation, success);
-            },
-            params: {}
+                for (var i = 0; i < records.length; i++) {
+                    var markerOptions = self.mapToMarkerOptions(records[i].data);
+                    var map = self.getManageMap();
+                    map.on('activate', function (a, s) {
+                        p.addMarker(markerOptions);
+                    }, self);
+                }
+            }
         });
+    },
+
+    mapToMarkerOptions: function(vehicleModel) {
+        return {
+            position: new google.maps.LatLng(vehicleModel.Latitude, vehicleModel.Longitude)
+        };
     }
 });

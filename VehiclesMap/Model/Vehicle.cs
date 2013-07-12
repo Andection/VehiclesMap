@@ -8,8 +8,8 @@ namespace VehiclesMap.Model
         public long Id { get; set; }
         public string Name { get; set; }
         public DateTime Time { get; set; }
-        public float Latitude { get; set; }
-        public float Longitude { get; set; }
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
         public LocationType LocationType { get; set; }
         [MaxLength(250)]
         public string Notes { get; set; }

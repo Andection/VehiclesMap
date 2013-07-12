@@ -19,9 +19,9 @@ namespace VehiclesMap.Controllers
                                 new Vehicle
                                     {
                                         Id = 1,
-                                        Latitude = 12,
+                                        Latitude = 42.339641,
                                         LocationType = LocationType.DropOff,
-                                        Longitude = 123,
+                                        Longitude = -71.094224,
                                         Name = "name",
                                         Notes = "long-long note",
                                         Time = DateTime.Now
