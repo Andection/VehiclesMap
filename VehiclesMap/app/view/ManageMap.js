@@ -2,10 +2,6 @@
     extend: 'Ext.Container',
     alias: 'widget.manageMap',
 
-   // store: 'Stations',
-   // title: 'Stations',
-   // hideHeaders: true,
-
     initComponent: function() {
         this.items = [{
                 xtype: 'datefield',

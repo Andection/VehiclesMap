@@ -15,15 +15,24 @@ namespace VehiclesMap.Controllers
         public ActionResult GetVehiclesFor(DateTime time)
         {
             return Json(new[]
-                {
-                    new Vehicle {Id = 1, Latitude = 12, LocationType = LocationType.DropOff, Longitude = 123, Name = "name", Notes = "long-long note", Time = DateTime.Now}
-                });
+                            {
+                                new Vehicle
+                                    {
+                                        Id = 1,
+                                        Latitude = 12,
+                                        LocationType = LocationType.DropOff,
+                                        Longitude = 123,
+                                        Name = "name",
+                                        Notes = "long-long note",
+                                        Time = DateTime.Now
+                                    }
+                            });
         }
 
         [HttpGet]
         public ActionResult GetVehicles()
         {
-            GetVehiclesFor(DateTime.UtcNow);
+            return GetVehiclesFor(DateTime.UtcNow);
         }
     }
 }
