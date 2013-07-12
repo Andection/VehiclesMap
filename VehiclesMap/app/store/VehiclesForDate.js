@@ -7,9 +7,10 @@
     
     proxy: {
         type: 'ajax',
-        url: 'Vehicle/GetVehiclesFor',
+        url: 'Vehicles/GetVehiclesFor',
         reader: {
-            type: 'json'
+            type: 'json',
+            root: 'results'
         }
     }
 });

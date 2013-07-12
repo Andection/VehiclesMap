@@ -2,7 +2,7 @@
     extend: 'Ext.app.Controller',
 
 
-//    views: ['ManageMap','GMapPanel'],
+    //    views: ['ManageMap','GMapPanel'],
     refs: [{
         ref: 'ManageMap',
         selector: 'ManageMap'
@@ -13,11 +13,14 @@
     
     stores: ['Vehicles', 'VehiclesForDate'],
 
-    init: function () {
+    init: function() {
         var store = this.getVehiclesStore();
         console.log(store);
-         store.load(function(records, operation, success) {
-             console.log(records, operation, success);
-         });
+        store.load({
+            callback: function(records, operation, success) {
+                console.log(records, operation, success);
+            },
+            params: {}
+        });
     }
 });

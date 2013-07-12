@@ -4,12 +4,16 @@
     model: 'VehiclesMap.model.Vehicle',
 
     autoLoad: true,
-
     proxy: {
         type: 'ajax',
-        url: 'Vehicle/GetVehicles',
+        actionMethods: { read: 'GET'},
+        url: 'Vehicles/GetVehicles',
+        limitParam: undefined,
+        pageParam: undefined,
+        startParam: undefined,
         reader: {
-            type: 'json'
+            type: 'json',
+            root: 'results'
         }
     }
 });

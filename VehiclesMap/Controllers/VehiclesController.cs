@@ -26,9 +26,9 @@ namespace VehiclesMap.Controllers
                                         Notes = "long-long note",
                                         Time = DateTime.Now
                                     }
-                            });
+                            },JsonRequestBehavior.AllowGet);
         }
-
+        
         [HttpGet]
         public ActionResult GetVehicles()
         {
