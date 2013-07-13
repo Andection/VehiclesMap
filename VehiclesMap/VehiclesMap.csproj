@@ -146,9 +146,14 @@
     <Content Include="Content\bootstrap-responsive.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\images\actual_drop_off.png" />
+    <Content Include="Content\images\actual_pick_up.png" />
+    <Content Include="Content\images\actual_truck.png" />
+    <Content Include="Content\images\drop_off.png" />
     <Content Include="Content\images\glyphicons-halflings-white.png" />
     <Content Include="Content\images\glyphicons-halflings.png" />
-    <Content Include="Content\images\vehicle.png" />
+    <Content Include="Content\images\pick_up.png" />
+    <Content Include="Content\images\truck.png" />
     <Content Include="Content\Style.css" />
     <Content Include="extjs\css\ext-all-access-debug.css" />
     <Content Include="extjs\css\ext-all-access-rtl-debug.css" />

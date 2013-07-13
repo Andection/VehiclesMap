@@ -66,7 +66,6 @@ Ext.define('VehiclesMap.view.GMapPanel', {
     },
     
     clearMarkers: function () {
-        console.log(this._markers);
         Ext.each(this._markers, function (marker) {
             marker.setMap(null);
         },this);
