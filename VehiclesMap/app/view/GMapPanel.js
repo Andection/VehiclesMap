@@ -43,7 +43,6 @@ Ext.define('VehiclesMap.view.GMapPanel', {
             mapTypeId: google.maps.MapTypeId.HYBRID
         });
         this.gmap = new google.maps.Map(this.body.dom, options);
-        console.log('create map',this.gmap);
         if (marker) {
             this.addMarker(Ext.applyIf(marker, {
                 position: center

@@ -16,13 +16,14 @@
         var self = this;
         store.load({
             callback: function(records, operation, success) {
+                var markers = [];
+                var map = self.getGMapPanel();
                 for (var i = 0; i < records.length; i++) {
                     var markerOptions = self.mapToMarkerOptions(records[i].data);
-                    var map = self.getManageMap();
-                    map.on('activate', function (a, s) {
-                        p.addMarker(markerOptions);
-                    }, self);
+                    markers.push(markerOptions);
                 }
+
+                map.markers = markers;
             }
         });
     },
