@@ -12,27 +12,23 @@ namespace VehiclesMap.Controllers
         }
 
         [HttpGet]
-        public ActionResult GetVehiclesFor(DateTime time)
+        public ActionResult GetVehiclesFor(string date)
         {
+            var dateTime = Convert.ToDateTime(date);
             return Json(new[]
                             {
                                 new Vehicle
                                     {
                                         Id = 1,
-                                        Latitude = 42.339641,
+                                        Latitude = 42.339641 + dateTime.DayOfYear/10.0,
                                         LocationType = LocationType.DropOff,
-                                        Longitude = -71.094224,
+                                        Longitude = -71.094224 - dateTime.DayOfYear/10.0,
                                         Name = "name",
                                         Notes = "long-long note",
-                                        Time = DateTime.Now
+                                        Time = dateTime,
+                                        IsActual = true
                                     }
-                            },JsonRequestBehavior.AllowGet);
-        }
-        
-        [HttpGet]
-        public ActionResult GetVehicles()
-        {
-            return GetVehiclesFor(DateTime.UtcNow);
+                            }, JsonRequestBehavior.AllowGet);
         }
     }
 }

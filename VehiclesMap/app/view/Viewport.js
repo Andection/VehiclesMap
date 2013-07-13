@@ -17,7 +17,7 @@ Ext.define('VehiclesMap.view.Viewport', {
                 xtype: 'toolbar',
                 items: [{
                     xtype: 'manageMap',
-                    width: 100
+                    width: 100,
                 }]
             }],
             items: [

@@ -4,12 +4,14 @@
 
     initComponent: function() {
         this.items = [{
-                xtype: 'datefield',
-                width: 100
-            }, {
-                xtype: 'timefield',
-                width: 100
-            }];
+            xtype: 'datefield',
+            width: 100
+        }, {
+            xtype: 'button',
+            width: 100,
+            text: 'show map in window',
+            action: 'showMapWindow'
+        }];
 
         this.callParent();
     }

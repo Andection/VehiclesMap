@@ -137,10 +137,10 @@
     <Content Include="app\app.js" />
     <Content Include="app\controller\Vehicles.js" />
     <Content Include="app\model\Vehicle.js" />
-    <Content Include="app\store\Vehicles.js" />
     <Content Include="app\store\VehiclesForDate.js" />
     <Content Include="app\view\ManageMap.js" />
     <Content Include="app\view\GMapPanel.js" />
+    <Content Include="app\view\MapWindow.js" />
     <Content Include="app\view\Viewport.js" />
     <Content Include="Content\bootstrap-responsive.css" />
     <Content Include="Content\bootstrap-responsive.min.css" />
@@ -148,6 +148,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\images\glyphicons-halflings-white.png" />
     <Content Include="Content\images\glyphicons-halflings.png" />
+    <Content Include="Content\images\vehicle.png" />
     <Content Include="Content\Style.css" />
     <Content Include="extjs\css\ext-all-access-debug.css" />
     <Content Include="extjs\css\ext-all-access-rtl-debug.css" />
@@ -3104,6 +3105,9 @@
     <Content Include="Scripts\ext-all.js" />
     <Content Include="Scripts\jquery-1.9.1.js" />
     <Content Include="Scripts\jquery-1.9.1.min.js" />
+    <None Include="Scripts\linq-vsdoc.js" />
+    <Content Include="Scripts\linq.js" />
+    <Content Include="Scripts\linq.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

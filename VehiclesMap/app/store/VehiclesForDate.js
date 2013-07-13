@@ -8,6 +8,10 @@
     proxy: {
         type: 'ajax',
         url: 'Vehicles/GetVehiclesFor',
+        actionMethods: { read: 'GET' },
+        limitParam: undefined,
+        pageParam: undefined,
+        startParam: undefined,
         reader: {
             type: 'json',
             root: 'results'

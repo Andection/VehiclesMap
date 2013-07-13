@@ -3,12 +3,13 @@
  */
 Ext.define('VehiclesMap.view.GMapPanel', {
     extend: 'Ext.panel.Panel',
-
+    mapwin: null,
     alias: 'widget.gmappanel',
-
+    _markers: [],
+    _markersForAdd:[],
     requires: ['Ext.window.MessageBox'],
 
-    initComponent: function () {
+    initComponent: function() {
         Ext.applyIf(this, {
             plain: true,
             gmapType: 'map',
@@ -18,7 +19,7 @@ Ext.define('VehiclesMap.view.GMapPanel', {
         this.callParent();
     },
 
-    afterFirstLayout: function () {
+    afterFirstLayout: function() {
         var center = this.center;
         this.callParent();
 
@@ -34,7 +35,7 @@ Ext.define('VehiclesMap.view.GMapPanel', {
 
     },
 
-    createMap: function (center, marker) {
+    createMap: function(center, marker) {
         var options = Ext.apply({}, this.mapOptions);
 
         options = Ext.applyIf(options, {
@@ -43,32 +44,44 @@ Ext.define('VehiclesMap.view.GMapPanel', {
             mapTypeId: google.maps.MapTypeId.HYBRID
         });
         this.gmap = new google.maps.Map(this.body.dom, options);
-        if (marker) {
-            this.addMarker(Ext.applyIf(marker, {
-                position: center
-            }));
-        }
+        //if (marker) {
+        //    this.addMarker(Ext.applyIf(marker, {
+        //        position: center
+        //    }));
+        //}
 
-        Ext.each(this.markers, this.addMarker, this);
+        Ext.each(this._markersForAdd, this.addMarker, this);
+        this._markersForAdd = [];
         this.fireEvent('mapready', this, this.gmap);
     },
 
-    addMarker: function (marker) {
-        marker = Ext.apply({
-            map: this.gmap
-        }, marker);
-
-        if (!marker.position) {
-            marker.position = new google.maps.LatLng(marker.lat, marker.lng);
+    addMarker: function (markerOptions) {
+        if (!this.gmap) {
+            this._markersForAdd.push(markerOptions);
+            return;
         }
-        var o = new google.maps.Marker(marker);
-        console.log(this.gmap);
-        Ext.Object.each(marker.listeners, function (name, fn) {
+        markerOptions = Ext.apply({
+            map: this.gmap
+        }, markerOptions);
+
+        if (!markerOptions.position) {
+            markerOptions.position = new google.maps.LatLng(markerOptions.lat, markerOptions.lng);
+        }
+        var marker = new google.maps.Marker(markerOptions);
+        Ext.Object.each(markerOptions.listeners, function (name, fn) {
             google.maps.event.addListener(o, name, fn);
         });
-        return o;
+        this._markers.push(marker);
     },
-
+    
+    clearMarkers: function () {
+        console.log(this._markers);
+        Ext.each(this._markers, function (marker) {
+            console.log(marker);
+            marker.setMap(null);
+        },this);
+    },
+    
     lookupCode: function (addr, marker) {
         this.geocoder = new google.maps.Geocoder();
         this.geocoder.geocode({
