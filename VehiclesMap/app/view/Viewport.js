@@ -23,9 +23,7 @@ Ext.define('VehiclesMap.view.Viewport', {
             items: [
                 {
                     xtype: 'gmappanel',
-                    center: {
-                        geoCodeAddr: '4 Yawkey Way, Boston, MA, 02215-3409, USA'
-                    },
+                    center: new google.maps.LatLng(42.339641, -71.094224),
                     layout: 'fit',
                 }],
             layout: 'fit'

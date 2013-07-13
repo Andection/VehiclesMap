@@ -30,24 +30,23 @@ Ext.define('VehiclesMap.controller.Vehicles', {
         this.loadVehiclesForDate(newValue);
     },
 
-    onShowMapWindow: function() {
-        var map = this.getGMapPanel();
-        if (!this.mapWindow) {
-            this.mapWindow = Ext.create('Ext.window.Window', {
-                layout: 'fit',
-                width: 300,
-                height: 300,
-                items: [{
-                    xtype: 'gmappanel',
-                    center: {
-                        geoCodeAddr: '4 Yawkey Way, Boston, MA, 02215-3409, USA'
-                    },
-                    layout: 'fit',
-                    markers: map.markers
-                }]
-            });
-        }
-        this.mapWindow.show();
+    onShowMapWindow: function () {
+        alert('Show map window');
+        //   var map = this.getGMapPanel();
+        //   if (!this.mapWindow) {
+        //       this.mapWindow = Ext.create('Ext.window.Window', {
+        //           layout: 'fit',
+        //           width: 300,
+        //           height: 300,
+        //           items: [{
+        //               xtype: 'gmappanel',
+        //               center: map.center,
+        //               layout: 'fit'
+        //               //, markers: map.markers
+        //           }]
+        //       });
+        //   }
+        //   this.mapWindow.show();
     },
     
     loadVehiclesForDate: function(date) {
@@ -66,22 +65,24 @@ Ext.define('VehiclesMap.controller.Vehicles', {
         if (success) {
             var map = this.getGMapPanel();
             var markers= Enumerable.From(records)
-                .Select(function(record) {
-                    var model = record.data;
-                    var title = model.Name + " " + model.Time + " " + model.LocationType;
-                    return {
-                        position: new google.maps.LatLng(model.Latitude, model.Longitude),
-                        title: title,
-                        icon: {
-                            url: '/content/images/vehicle.png'
-                        }
-                    };
-                })
+                .Select(this._mapToMarkersOptions)
                 .ToArray();
             map.clearMarkers();
             Enumerable.From(markers).ForEach(function(marker) {
                 map.addMarker(marker);
             });
         }
+    },
+    
+    _mapToMarkersOptions: function(vehicle) {
+        var model = vehicle.data;
+        var title = model.Name + " " + model.Time + " " + model.LocationType;
+        return {
+            position: new google.maps.LatLng(model.Latitude, model.Longitude),
+            title: title,
+            icon: {
+                url: '/content/images/vehicle.png'
+            }
+        };
     }
 });

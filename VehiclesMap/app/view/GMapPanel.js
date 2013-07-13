@@ -24,18 +24,14 @@ Ext.define('VehiclesMap.view.GMapPanel', {
         this.callParent();
 
         if (center) {
-            if (center.geoCodeAddr) {
-                this.lookupCode(center.geoCodeAddr, center.marker);
-            } else {
-                this.createMap(center);
-            }
+            this.createMap(center);
         } else {
             Ext.Error.raise('center is required');
         }
 
     },
 
-    createMap: function(center, marker) {
+    createMap: function(center) {
         var options = Ext.apply({}, this.mapOptions);
 
         options = Ext.applyIf(options, {
@@ -44,11 +40,6 @@ Ext.define('VehiclesMap.view.GMapPanel', {
             mapTypeId: google.maps.MapTypeId.HYBRID
         });
         this.gmap = new google.maps.Map(this.body.dom, options);
-        //if (marker) {
-        //    this.addMarker(Ext.applyIf(marker, {
-        //        position: center
-        //    }));
-        //}
 
         Ext.each(this._markersForAdd, this.addMarker, this);
         this._markersForAdd = [];
@@ -77,7 +68,6 @@ Ext.define('VehiclesMap.view.GMapPanel', {
     clearMarkers: function () {
         console.log(this._markers);
         Ext.each(this._markers, function (marker) {
-            console.log(marker);
             marker.setMap(null);
         },this);
     },
