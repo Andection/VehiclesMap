@@ -18,7 +18,6 @@ Ext.define('VehiclesMap.controller.Vehicles', {
             xtype: 'mapWindow',
             autoCreate: true
         }],
-    mapWindow: null,
     stores: ['VehiclesForDate'],
 
     init: function () {
