@@ -28,7 +28,7 @@ namespace VehiclesMap.Controllers
                                         Longitude = -71.094224 - dateTime.Hour/10000.0,
                                         Name = "name",
                                         Notes = "long-long note",
-                                        Time = dateTime.AddMinutes(30)
+                                        Time = dateTime
                                     },
                                         new Vehicle
                                     {
@@ -57,7 +57,7 @@ namespace VehiclesMap.Controllers
                                         Longitude = -71.094224 - dateTime4.Hour/10000.0,
                                         Name = "name",
                                         Notes = "long-long note",
-                                        Time = dateTime3
+                                        Time = dateTime4
                                     }
                             }, JsonRequestBehavior.AllowGet);
         }

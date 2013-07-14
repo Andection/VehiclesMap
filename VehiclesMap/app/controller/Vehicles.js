@@ -65,9 +65,7 @@ Ext.define('VehiclesMap.controller.Vehicles', {
         });
     },
     
-    //todo: сделать Time типа Date
     //todo:оптимизировать для большого кол-ва маркеров. отбросить не репрезентитивные. Возможно, сделать линию движения с иконками остановок и последней иконки машины
-    //todo: синхронизировать для двух карт
     onVehiclesStoreLoad: function(records, operation, success) {
         if (success) {
             var map = this.getGMapPanel();
@@ -81,7 +79,7 @@ Ext.define('VehiclesMap.controller.Vehicles', {
                     var last = Enumerable.From(r.source)
                         .MaxBy('r=>r.Time');
 
-                    var lastMarker = self._mapToMarkersOptions(last,true, self);
+                    var lastMarker = self._mapToMarkersOptions(last, true, self);
 
                     var res = Enumerable.From(r.source)
                         .Except([last])
@@ -93,14 +91,14 @@ Ext.define('VehiclesMap.controller.Vehicles', {
                     return res;
                 })
                 .ToArray();
+            console.log(allMarkers);
             map.clearMarkers();
             Enumerable.From(markers).ForEach(function(marker) {
                 map.addMarker(marker);
             });
         }
     },
-    
-    //todo: сделать красивые иконки
+        //todo: сделать красивые иконки
     _mapToMarkersOptions: function(vehicle, isActual, scope) {
         var title = vehicle.Name + " " + vehicle.Time + " " + vehicle.LocationType;
         return {

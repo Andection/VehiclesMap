@@ -28,7 +28,6 @@ Ext.define('VehiclesMap.view.GMapPanel', {
         } else {
             Ext.Error.raise('center is required');
         }
-
     },
 
     createMap: function(center) {
