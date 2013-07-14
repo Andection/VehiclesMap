@@ -7,11 +7,12 @@ Ext.define('VehiclesMap.controller.Vehicles', {
             ref: 'ManageMap',
             selector: 'manageMap'
         }, {
-            ref: 'GMapPanel',
-            selector: 'viewport gmappanel'
+            ref: 'MapPanel',
+            selector: 'mapPanel'
         }, {
             ref: 'GMapPanel',
-            selector: 'viewport gmappanel'
+            selector: 'gmappanel',
+            xtype: 'gmappanel',
         }, {
             ref: 'MapWindow',
             selector: 'mapWindow',
@@ -30,6 +31,14 @@ Ext.define('VehiclesMap.controller.Vehicles', {
                 afterrender: function(field, options) {
                     field.setValue(new Date);
                 }
+            },
+            'mapWindow': {
+                close: function() {
+                    var mapPanel = this.getMapPanel();
+                    var map = this.getGMapPanel();
+                    mapPanel.removeAll();
+                    mapPanel.add(map);
+                }
             }
         });
     },
@@ -39,7 +48,9 @@ Ext.define('VehiclesMap.controller.Vehicles', {
     },
 
     onShowMapWindow: function () {
-        var window = this.getMapWindow();
+        var window = this.getMapWindow(); 
+        var map = this.getGMapPanel();
+        window.add(map);
         window.show();
     },
 
@@ -53,7 +64,10 @@ Ext.define('VehiclesMap.controller.Vehicles', {
             }
         });
     },
-
+    
+    //todo: сделать Time типа Date
+    //todo:оптимизировать для большого кол-ва маркеров. отбросить не репрезентитивные. Возможно, сделать линию движения с иконками остановок и последней иконки машины
+    //todo: синхронизировать для двух карт
     onVehiclesStoreLoad: function(records, operation, success) {
         if (success) {
             var map = this.getGMapPanel();
@@ -67,17 +81,16 @@ Ext.define('VehiclesMap.controller.Vehicles', {
                     var last = Enumerable.From(r.source)
                         .MaxBy('r=>r.Time');
 
-                    var lastMarker = self._mapToMarkersOptions(last,true,self);
+                    var lastMarker = self._mapToMarkersOptions(last,true, self);
 
                     var res = Enumerable.From(r.source)
                         .Except([last])
                         .Select(function(m) {
-                            return self._mapToMarkersOptions(m, false,self);
+                            return self._mapToMarkersOptions(m, false, self);
                         })
                         .ToArray();
                     res.push(lastMarker);
                     return res;
-
                 })
                 .ToArray();
             map.clearMarkers();
@@ -86,20 +99,21 @@ Ext.define('VehiclesMap.controller.Vehicles', {
             });
         }
     },
-
+    
+    //todo: сделать красивые иконки
     _mapToMarkersOptions: function(vehicle, isActual, scope) {
         var title = vehicle.Name + " " + vehicle.Time + " " + vehicle.LocationType;
         return {
             position: new google.maps.LatLng(vehicle.Latitude, vehicle.Longitude),
             title: title,
             icon: {
-                url: scope._getVehicleIcon(vehicle.LocationType, isActual),
+                url: scope._getVehicleIconUrl(vehicle.LocationType, isActual),
                 size: new google.maps.Size(420, 68)
             }
         };
     },
     
-    _getVehicleIcon: function(locationType, isActual) {
+    _getVehicleIconUrl: function(locationType, isActual) {
         if (locationType == 2) {
             if (isActual) {
                 return '/content/images/actual_truck.png';

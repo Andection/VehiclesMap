@@ -140,6 +140,7 @@
     <Content Include="app\store\VehiclesForDate.js" />
     <Content Include="app\view\ManageMap.js" />
     <Content Include="app\view\GMapPanel.js" />
+    <Content Include="app\view\MapPanel.js" />
     <Content Include="app\view\MapWindow.js" />
     <Content Include="app\view\Viewport.js" />
     <Content Include="Content\bootstrap-responsive.css" />
