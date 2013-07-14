@@ -19,7 +19,7 @@ Ext.define('VehiclesMap.view.GMapPanel', {
         this.callParent();
     },
 
-    afterFirstLayout: function() {
+    afterFirstLayout: function () {
         var center = this.center;
         this.callParent();
 
@@ -71,21 +71,6 @@ Ext.define('VehiclesMap.view.GMapPanel', {
         },this);
     },
     
-    lookupCode: function (addr, marker) {
-        this.geocoder = new google.maps.Geocoder();
-        this.geocoder.geocode({
-            address: addr
-        }, Ext.Function.bind(this.onLookupComplete, this, [marker], true));
-    },
-
-    onLookupComplete: function (data, response, marker) {
-        if (response != 'OK') {
-            Ext.MessageBox.alert('Error', 'An error occured: "' + response + '"');
-            return;
-        }
-        this.createMap(data[0].geometry.location, marker);
-    },
-
     afterComponentLayout: function (w, h) {
         this.callParent(arguments);
         this.redraw();

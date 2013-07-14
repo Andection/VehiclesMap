@@ -7,7 +7,7 @@ Ext.define('VehiclesMap.view.Viewport', {
 
     requires: [
         'VehiclesMap.view.ManageMap',
-        'VehiclesMap.view.GMapPanel'
+        'VehiclesMap.view.GMapPanel',
     ],
 
     initComponent: function() {
@@ -20,13 +20,12 @@ Ext.define('VehiclesMap.view.Viewport', {
                     width: 100,
                 }]
             }],
-            items: [
-                {
+            items: [{
                     xtype: 'gmappanel',
                     center: new google.maps.LatLng(42.339641, -71.094224),
                     layout: 'fit',
                 }],
-            layout: 'fit'
+            layout: 'fit',
         };
         this.callParent();
     }
