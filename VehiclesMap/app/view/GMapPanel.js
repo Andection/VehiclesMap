@@ -35,7 +35,7 @@ Ext.define('VehiclesMap.view.GMapPanel', {
         var options = Ext.apply({}, this.mapOptions);
 
         options = Ext.applyIf(options, {
-            zoom: 14,
+            zoom: 3,
             center: center,
             mapTypeId: google.maps.MapTypeId.HYBRID
         });

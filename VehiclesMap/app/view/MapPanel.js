@@ -9,7 +9,7 @@
             items: [{
                 xtype: 'gmappanel',
                 center: new google.maps.LatLng(42.339641, -71.094224),
-                layout:'fit'
+                layout: 'fit'
             }],
             layout: 'fit'
         };
