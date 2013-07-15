@@ -66,7 +66,8 @@ Ext.define('VehiclesMap.controller.Vehicles', {
     },
     
     //todo:оптимизировать для большого кол-ва маркеров. отбросить не репрезентитивные. Возможно, сделать линию движения с иконками остановок и последней иконки машины
-    onVehiclesStoreLoad: function(records, operation, success) {
+    onVehiclesStoreLoad: function (records, operation, success) {
+        console.log(success, records);
         if (success) {
             var map = this.getGMapPanel();
             var allMarkers = Enumerable.From(records).Select(function(r) {

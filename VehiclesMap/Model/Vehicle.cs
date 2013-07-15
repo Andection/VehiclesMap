@@ -6,7 +6,6 @@ namespace VehiclesMap.Model
     public class Vehicle
     {
         public long Id { get; set; }
-        public bool IsActual { get; set; }
         public string Name { get; set; }
         public DateTime Time { get; set; }
         public double Latitude { get; set; }
