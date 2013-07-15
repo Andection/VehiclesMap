@@ -6,7 +6,9 @@ Ext.define('VehiclesMap.view.GMapPanel', {
     mapwin: null,
     alias: 'widget.gmappanel',
     _markers: [],
-    _markersForAdd:[],
+    _markersForAdd: [],
+    _polylinehToAdd: [],
+    _polylineList: [],
     requires: ['Ext.window.MessageBox'],
 
     initComponent: function() {
@@ -41,7 +43,9 @@ Ext.define('VehiclesMap.view.GMapPanel', {
         this.gmap = new google.maps.Map(this.body.dom, options);
 
         Ext.each(this._markersForAdd, this.addMarker, this);
+        Ext.each(this._polylinehToAdd, this.addPolyline, this);
         this._markersForAdd = [];
+        this._polylinehToAdd = [];
         this.fireEvent('mapready', this, this.gmap);
     },
 
@@ -64,10 +68,29 @@ Ext.define('VehiclesMap.view.GMapPanel', {
         this._markers.push(marker);
     },
     
+    addPolyline: function(points) {
+        if (!this.gmap) {
+            this._polylinehToAdd.push(points);
+            return;
+        }
+        var polyline = new google.maps.Polyline({
+            path: points,
+            strokeColor: '#FF0000',
+            strokeOpacity: 1.0,
+            strokeWeight: 2
+        });
+        polyline.setMap(this.gmap);
+        this._polylineList.push(polyline);
+    },
+    
     clearMarkers: function () {
         Ext.each(this._markers, function (marker) {
             marker.setMap(null);
-        },this);
+        }, this);
+        
+        Ext.each(this._polylineList, function (line) {
+            line.setMap(null);
+        }, this);
     },
     
     afterComponentLayout: function (w, h) {

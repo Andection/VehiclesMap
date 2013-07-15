@@ -66,69 +66,72 @@ Ext.define('VehiclesMap.controller.Vehicles', {
     },
     
     //todo:оптимизировать для большого кол-ва маркеров. отбросить не репрезентитивные. Возможно, сделать линию движения с иконками остановок и последней иконки машины
-    onVehiclesStoreLoad: function (records, operation, success) {
+    onVehiclesStoreLoad: function(records, operation, success) {
         if (success) {
             var map = this.getGMapPanel();
             var allMarkers = Enumerable.From(records).SelectMany(function(r) {
                 return r.raw;
             }).ToArray();
             var self = this;
-            var markers = Enumerable.From(allMarkers)
-                .GroupBy("x=>x.Id", "x=>x")
+            var markersGroupedById = Enumerable.From(allMarkers)
+                .GroupBy("x=>x.Id", "x=>x");
+            var markers = markersGroupedById
                 .SelectMany(function(r) {
                     var last = Enumerable.From(r.source)
                         .MaxBy('r=>r.Time');
 
-                    var lastMarker = self._mapToMarkersOptions(last, true, self);
+                    var lastMarker = self._mapToMarkersOptions(last, self);
 
                     var res = Enumerable.From(r.source)
-                        .Except([last])
-                        .Select(function(m) {
-                            return self._mapToMarkersOptions(m, false, self);
-                        })
-                        .ToArray();
-                    res.push(lastMarker);
+                                        .Where(function(r) {
+                                            return  r.LocationType != 2;
+                                        })
+                                        .Select(function(m) {
+                                            return self._mapToMarkersOptions(m, self);
+                                        })
+                                        .Concat([lastMarker])
+                                        .ToArray();
                     return res;
                 })
                 .ToArray();
+            var pointsList=markersGroupedById.Select(function(record) {
+                return self._getPoints(record.source);
+            }).ToArray();
             map.clearMarkers();
             Enumerable.From(markers).ForEach(function(marker) {
                 map.addMarker(marker);
             });
+            Enumerable.From(pointsList).ForEach(function(points) {
+                map.addPolyline(points);
+            });
         }
     },
         //todo: сделать красивые иконки
-    _mapToMarkersOptions: function(vehicle, isActual, scope) {
+    _mapToMarkersOptions: function(vehicle, scope) {
         var title = vehicle.Name + " " + vehicle.Time + " " + vehicle.LocationType;
         return {
             position: new google.maps.LatLng(vehicle.Latitude, vehicle.Longitude),
             title: title,
             icon: {
-                url: scope._getVehicleIconUrl(vehicle.LocationType, isActual),
-                size: new google.maps.Size(420, 68)
+                url: scope._getVehicleIconUrl(vehicle.LocationType)
             }
         };
     },
     
-    _getVehicleIconUrl: function(locationType, isActual) {
+    _getPoints: function (markers) {
+        return Enumerable.From(markers)
+            .Select(function (marker) {
+                return new google.maps.LatLng(marker.Latitude, marker.Longitude);
+            }).ToArray();
+    },
+
+    _getVehicleIconUrl: function(locationType) {
         if (locationType == 2) {
-            if (isActual) {
-                return '/content/images/actual_truck.png';
-            } else {
                 return '/content/images/truck.png';
-            }
         } else if(locationType==1) {
-            if (isActual) {
-                return '/content/images/actual_drop_off.png';
-            } else {
                 return '/content/images/drop_off.png';
-            }
         } else {
-            if (isActual) {
-                return '/content/images/actual_pick_up.png';
-            } else {
                 return '/content/images/pick_up.png';
-            }
         }
     }
 });
