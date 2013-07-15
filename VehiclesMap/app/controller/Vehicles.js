@@ -102,9 +102,26 @@ Ext.define('VehiclesMap.controller.Vehicles', {
                 map.addMarker(marker);
             });
             Enumerable.From(pointsList).ForEach(function(points) {
-                map.addPolyline(points);
+                map.addPolyline(self._mapToPolylineOptions(points));
             });
         }
+    },
+    
+    _mapToPolylineOptions: function (points) {
+        return {
+            path: points,
+            strokeColor: '#0000FF',
+            strokeOpacity: 1.0,
+            strokeWeight: 2,
+            icons: [{
+                repeat: '250px',
+                icon: {
+                    strokeColor: '#FF0000',
+                    strokeWeight:2,
+                    path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW
+                }
+            }]
+        };
     },
         //todo: сделать красивые иконки
     _mapToMarkersOptions: function(vehicle, scope) {

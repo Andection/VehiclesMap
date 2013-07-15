@@ -9,7 +9,6 @@ Ext.define('VehiclesMap.view.GMapPanel', {
     _markersForAdd: [],
     _polylinehToAdd: [],
     _polylineList: [],
-    requires: ['Ext.window.MessageBox'],
 
     initComponent: function() {
         Ext.applyIf(this, {
@@ -68,19 +67,14 @@ Ext.define('VehiclesMap.view.GMapPanel', {
         this._markers.push(marker);
     },
     
-    addPolyline: function(points) {
+    addPolyline: function(polylineOptions) {
         if (!this.gmap) {
-            this._polylinehToAdd.push(points);
+            this._polylinehToAdd.push(polylineOptions);
             return;
         }
-        var polyline = new google.maps.Polyline({
-            path: points,
-            strokeColor: '#FF0000',
-            strokeOpacity: 1.0,
-            strokeWeight: 2
-        });
+        var polyline = new google.maps.Polyline(polylineOptions);
         polyline.setMap(this.gmap);
-        this._polylineList.push(polyline);
+        this._polylineList.push(polylineOptions);
     },
     
     clearMarkers: function () {

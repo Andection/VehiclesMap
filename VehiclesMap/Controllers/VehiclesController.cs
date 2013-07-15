@@ -16,13 +16,9 @@ namespace VehiclesMap.Controllers
         [HttpGet]
         public ActionResult GetVehiclesFor(string date)
         {
-            var dateTime = Convert.ToDateTime(date);
-            var datiTime2 = dateTime.AddMinutes(30);
-            var dateTime3 = datiTime2.AddMinutes(30);
-            var dateTime4 = dateTime3.AddMinutes(30);
             return Json(new[]
                 {
-                    VehiclePathGenerator.Generate(5, 100, DateTime.UtcNow)
+                    VehiclePathGenerator.Generate(10, 1000, DateTime.UtcNow)
                 }, JsonRequestBehavior.AllowGet);
         }
 
@@ -40,8 +36,8 @@ namespace VehiclesMap.Controllers
                     var pickUpCount = Random.Next(10);
                     var dropOffCount = Random.Next(10);
 
-                    var currentLatitude = StartLatitude + (Random.Next(10000) / 1000.0 - 5.0);
-                    var currentLongitude = StartLongitude + (Random.Next(10000) / 1000.0 - 5.0);
+                    var currentLatitude = StartLatitude + (Random.Next(100000) / 10000.0 );
+                    var currentLongitude = StartLongitude - (Random.Next(100000) / 10000.0 );
                     var pointTypeList = Enumerable.Range(0, pointCount - pickUpCount - dropOffCount - 1)
                                                   .Select(_ => LocationType.Other)
                                                   .Concat(Enumerable.Range(0, pickUpCount).Select(_ => LocationType.PickUp))
@@ -79,7 +75,7 @@ namespace VehiclesMap.Controllers
 
             private static double GetNext(double current)
             {
-                return current + Random.Next(1000) / 10000.0 - 0.5;
+                return current + Random.Next(100000000) / 1000000000.0 - 0.0000005;
             }
             private class VehicleAggregation
             {
