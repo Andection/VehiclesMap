@@ -2,7 +2,6 @@
 
 Ext.define('VehiclesMap.controller.Vehicles', {
     extend: 'Ext.app.Controller',
-    requires: ['VehiclesMap.view.MapWindow'],
     refs: [{
             ref: 'ManageMap',
             selector: 'manageMap'
@@ -18,12 +17,7 @@ Ext.define('VehiclesMap.controller.Vehicles', {
             'manageMap button[action=showMapWindow]': {
                 click: this.onShowMapWindow
             },
-            'manageMap': {
-                click: function () {
-                    var w = window.open("", "", "width=400,height=150");
-                    console.log(w);
-                }
-            },
+            
             'manageMap datefield': {
                 change: this.onMapDateChanged,
                 afterrender: function(field, options) {
@@ -35,13 +29,11 @@ Ext.define('VehiclesMap.controller.Vehicles', {
 
     onMapDateChanged: function(field, newValue, oldValue, options) {
         this.loadVehiclesForDate(newValue);
+        localStorage.setItem('ShareDate', newValue);
     },
 
     onShowMapWindow: function () {
-        var window = this.getMapWindow(); 
-        var map = this.getGMapPanel();
-        window.add(map);
-        window.show();
+        window.open("Map");
     },
 
     loadVehiclesForDate: function(date) {

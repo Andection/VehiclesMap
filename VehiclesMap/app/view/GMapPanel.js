@@ -74,14 +74,14 @@ Ext.define('VehiclesMap.view.GMapPanel', {
         }
         var polyline = new google.maps.Polyline(polylineOptions);
         polyline.setMap(this.gmap);
-        this._polylineList.push(polylineOptions);
+        this._polylineList.push(polyline);
     },
     
     clearMarkers: function () {
         Ext.each(this._markers, function (marker) {
             marker.setMap(null);
         }, this);
-        
+
         Ext.each(this._polylineList, function (line) {
             line.setMap(null);
         }, this);
