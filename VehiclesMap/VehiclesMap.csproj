@@ -140,6 +140,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Content Include="app\app.js" />
     <Content Include="app\controller\MapController.js" />
+    <Content Include="app\Mapper\MapOptionsMapper.js" />
     <Content Include="app\controller\Vehicles.js" />
     <Content Include="app\mapApp.js" />
     <Content Include="app\model\Vehicle.js" />

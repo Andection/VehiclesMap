@@ -1,4 +1,5 @@
 ﻿/// <reference path="../../Scripts/linq.js" />
+/// <reference path="../Mapper/MapOptionsMapper.js" />
 
 Ext.define('VehiclesMap.controller.MapController', {
     extend: 'Ext.app.Controller',
@@ -44,7 +45,6 @@ Ext.define('VehiclesMap.controller.MapController', {
             var allMarkers = Enumerable.From(records).SelectMany(function(r) {
                 return r.raw;
             }).ToArray();
-            var self = this;
             var markersGroupedById = Enumerable.From(allMarkers)
                 .GroupBy("x=>x.Id", "x=>x");
             var markers = markersGroupedById
@@ -52,14 +52,14 @@ Ext.define('VehiclesMap.controller.MapController', {
                     var last = Enumerable.From(r.source)
                         .MaxBy('r=>r.Time');
 
-                    var lastMarker = self._mapToMarkersOptions(last, self);
+                    var lastMarker = MapOptionsMapper.mapToMarkersOptions(last);
 
                     var res = Enumerable.From(r.source)
                                         .Where(function(r) {
                                             return  r.LocationType != 2;
                                         })
                                         .Select(function(m) {
-                                            return self._mapToMarkersOptions(m, self);
+                                            return MapOptionsMapper.mapToMarkersOptions(m);
                                         })
                                         .Concat([lastMarker])
                                         .ToArray();
@@ -67,59 +67,15 @@ Ext.define('VehiclesMap.controller.MapController', {
                 })
                 .ToArray();
             var pointsList=markersGroupedById.Select(function(record) {
-                return self._getPoints(record.source);
+                return MapOptionsMapper.getPoints(record.source);
             }).ToArray();
             map.clearMarkers();
             Enumerable.From(markers).ForEach(function(marker) {
                 map.addMarker(marker);
             });
             Enumerable.From(pointsList).ForEach(function(points) {
-                map.addPolyline(self._mapToPolylineOptions(points));
+                map.addPolyline(MapOptionsMapper.mapToPolylineOptions(points));
             });
-        }
-    },
-    _mapToPolylineOptions: function (points) {
-        return {
-            path: points,
-            strokeColor: '#0000FF',
-            strokeOpacity: 1.0,
-            strokeWeight: 2,
-            icons: [{
-                repeat: '250px',
-                icon: {
-                    strokeColor: '#FF0000',
-                    strokeWeight: 2,
-                    path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW
-                }
-            }]
-        };
-    },
-
-    _mapToMarkersOptions: function (vehicle, scope) {
-        var title = vehicle.Name + " " + vehicle.Time + " " + vehicle.LocationType;
-        return {
-            position: new google.maps.LatLng(vehicle.Latitude, vehicle.Longitude),
-            title: title,
-            icon: {
-                url: scope._getVehicleIconUrl(vehicle.LocationType)
-            }
-        };
-    },
-
-    _getPoints: function (markers) {
-        return Enumerable.From(markers)
-            .Select(function (marker) {
-                return new google.maps.LatLng(marker.Latitude, marker.Longitude);
-            }).ToArray();
-    },
-
-    _getVehicleIconUrl: function (locationType) {
-        if (locationType == 2) {
-            return '/content/images/truck.png';
-        } else if (locationType == 1) {
-            return '/content/images/drop_off.png';
-        } else {
-            return '/content/images/pick_up.png';
         }
     }
 });         
