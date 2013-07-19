@@ -126,6 +126,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="Controllers\MapController.cs" />
     <Compile Include="Controllers\VehiclesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -138,13 +139,14 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Content Include="app\app.js" />
+    <Content Include="app\controller\MapController.js" />
     <Content Include="app\controller\Vehicles.js" />
+    <Content Include="app\mapApp.js" />
     <Content Include="app\model\Vehicle.js" />
     <Content Include="app\store\VehiclesForDate.js" />
     <Content Include="app\view\ManageMap.js" />
     <Content Include="app\view\GMapPanel.js" />
     <Content Include="app\view\MapPanel.js" />
-    <Content Include="app\view\MapWindow.js" />
     <Content Include="app\view\Viewport.js" />
     <Content Include="Content\bootstrap-responsive.css" />
     <Content Include="Content\bootstrap-responsive.min.css" />
@@ -3126,6 +3128,7 @@
     </Content>
     <Content Include="Views\Web.config" />
     <Content Include="Scripts\jquery-1.9.1.min.map" />
+    <Content Include="Views\Map\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

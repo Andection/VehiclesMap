@@ -7,17 +7,9 @@ Ext.define('VehiclesMap.controller.Vehicles', {
             ref: 'ManageMap',
             selector: 'manageMap'
         }, {
-            ref: 'MapPanel',
-            selector: 'mapPanel'
-        }, {
             ref: 'GMapPanel',
             selector: 'gmappanel',
             xtype: 'gmappanel',
-        }, {
-            ref: 'MapWindow',
-            selector: 'mapWindow',
-            xtype: 'mapWindow',
-            autoCreate: true
         }],
     stores: ['VehiclesForDate'],
 
@@ -26,18 +18,16 @@ Ext.define('VehiclesMap.controller.Vehicles', {
             'manageMap button[action=showMapWindow]': {
                 click: this.onShowMapWindow
             },
+            'manageMap': {
+                click: function () {
+                    var w = window.open("", "", "width=400,height=150");
+                    console.log(w);
+                }
+            },
             'manageMap datefield': {
                 change: this.onMapDateChanged,
                 afterrender: function(field, options) {
                     field.setValue(new Date);
-                }
-            },
-            'mapWindow': {
-                close: function() {
-                    var mapPanel = this.getMapPanel();
-                    var map = this.getGMapPanel();
-                    mapPanel.removeAll();
-                    mapPanel.add(map);
                 }
             }
         });
